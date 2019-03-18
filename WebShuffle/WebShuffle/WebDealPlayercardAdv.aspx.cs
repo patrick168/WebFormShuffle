@@ -16,7 +16,7 @@ namespace WebShuffle
             //originalCrad();  //show card 1~52
         }
 
-        struct PlayCard
+        public struct PlayCard
         {
             string cardType { get; set; }
             int cardNO { get; set; }
@@ -59,20 +59,22 @@ namespace WebShuffle
                 return cards;
             }
 
-            //public List<PlayCard> plarcardlist()
-            //{               
-            //    string[] cardSuit = { "spade", "heart", "diamond", "club" };
-            //    for (int i = 0; i < 4; i++)
-            //    {
-            //        for (int x = 1; x <= 13; x++)
-            //        {
-            //            string onecard = cardSuit[i] + x + "  ";
-            //            newcards.Add(onecard);
-            //        }
-            //    }
-            //    return cards;
-            //}
- 
+            public List<PlayCard> playCardList()
+            {
+                string[] cardSuit = { "spade", "heart", "diamond", "club" };
+                PlayCard playCard = new PlayCard();
+                List<PlayCard> cards = new List<PlayCard>();
+
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int x = 1; x <= 13; x++)
+                    {
+                        string onecard = cardSuit[i] + x + "  ";                        
+                    }
+                }
+                return cards;
+            }
+
             public List<string>  Shuffle()
             {
                 int max = 51;
