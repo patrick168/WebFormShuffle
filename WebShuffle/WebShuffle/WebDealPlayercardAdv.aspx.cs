@@ -9,7 +9,7 @@ namespace WebShuffle
 {
     public partial class WebDealPlayercardAdv : Page
     {
-     
+        //增加排大小功能
         protected void Page_Load(object sender, EventArgs e)
         {
             GameCard gameCard = new GameCard();
@@ -47,7 +47,7 @@ namespace WebShuffle
             public List<string> playcard()
             {
                 List<string> cards = new List<string>();
-                string[] cardSuit = { "spade", "heart", "diamond", "club" };
+                string[] cardSuit = { "club", "diamond", "heart", "spade" };
                 for (int i = 0; i < 4; i++)
                 {
                     for (int x = 1; x <= 13; x++)
@@ -84,6 +84,7 @@ namespace WebShuffle
                 List<string> NewCard = gameCard.playcard();
 
                 //need to arrange
+                //排序 不管花色照大小排
                 for (int i = 0; i < 13; i++)  //52
                 {
                     int ran = r.Next(0, max - i);
@@ -96,6 +97,13 @@ namespace WebShuffle
 
                     NewCard.RemoveAt(ran);
                 }
+                return tempCard;
+
+              
+            }
+
+            public List<string> SortingCards(List<string> tempCard)
+            {
                 return tempCard;
             }
         }
