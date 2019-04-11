@@ -83,15 +83,10 @@ namespace WebShuffle
                 GameCard gameCard = new GameCard();
                 List<string> NewCard = gameCard.playcard();
 
-                for (int i = 0; i < 13; i++)  //52
+                for (int i = 0; i < 13; i++)  
                 {
                     int ran = r.Next(0, max - i);
                     tempCard.Add(NewCard[ran]);
-
-                    //if ((i+1)%13==0)                    
-                    //    Response.Write(NewCard[ran] + "<br>");
-                    //else
-                    //    Response.Write(NewCard[ran] + "， ");
 
                     NewCard.RemoveAt(ran);
                 }

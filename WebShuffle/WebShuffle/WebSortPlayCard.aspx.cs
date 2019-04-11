@@ -9,42 +9,21 @@ namespace WebShuffle
 {
     public partial class WebSortPlayCard : System.Web.UI.Page
     {
+        GamePlayCard gamePlayCard = new GamePlayCard();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            GamePlayCard gamePlayCard = new GamePlayCard();            
             gamePlayCard.newplaycard();
-            List<string> newCard = gamePlayCard.originalCard;
-
-
-            for (int i = 0; i < newCard.Count; i++)
-            {
-                if ((i + 1) % 13 != 0)
-                {
-                    Response.Write(newCard[i] + "\t");
-                }
-                else
-                {
-                    Response.Write(newCard[i] + "<br>");
-                }
-            }
-
-            Response.Write("<br><br>");
-
-            List<int> afterSort = gamePlayCard.originalCardID;
-            gamePlayCard.sortCard(2, afterSort);
-
-            foreach (int no in afterSort)
-            {
-                Response.Write(gamePlayCard.cardface(no) + "\t");
-            }
         }
 
         public class GamePlayCard
         {
             public List<string> originalCard = new List<string>();
-            List<string> tempCard = new List<string>();
-            List<string> showCard = new List<string>();
+            public List<string> tempCard = new List<string>();
+            public List<string> showCard = new List<string>();
             public List<int> originalCardID = new List<int>();  //1~52
+            public List<int> tempCardID = new List<int>();  //1~52
+            public List<int> gameCardID = new List<int>();  //1~52
 
             public void newplaycard()
             {             
@@ -101,7 +80,7 @@ namespace WebShuffle
                 {
                     for(int j=i; j < cardId.Count(); j++)
                     {
-                        if(CardNumberForSort(gametype,cardId[i]) < CardNumberForSort(gametype,cardId[j]))
+                        if(CardNumberForSort(gametype,cardId[i]) > CardNumberForSort(gametype,cardId[j]))
                         {
                             temp = cardId[i];
                             cardId[i] = cardId[j];
@@ -149,5 +128,76 @@ namespace WebShuffle
                 return show;
             }
         }
+
+        protected void NewPlayCard_Click(object sender, EventArgs e)
+        {           
+            List<string> newCard = gamePlayCard.originalCard;
+
+
+            for (int i = 0; i < newCard.Count; i++)
+            {
+                if ((i + 1) % 13 != 0)
+                {
+                    Response.Write(newCard[i] + "\t");
+                }
+                else
+                {
+                    Response.Write(newCard[i] + "<br>");
+                }
+            }
+        }
+
+        protected void SortNewPlayCard_Click(object sender, EventArgs e)
+        {
+            List<int> afterSort = gamePlayCard.originalCardID;
+            gamePlayCard.sortCard(2, afterSort);
+
+            foreach (int no in afterSort)
+            {
+                Response.Write(gamePlayCard.cardface(no) + "\t");
+            }
+        }
+
+        protected void DealOnePlayer_Click(object sender, EventArgs e)
+        {
+            DealSort(1);
+        }
+
+        protected void DealAllPlayers_Click(object sender, EventArgs e)
+        {
+            DealSort(4);
+        }
+
+        public void DealSort(int players)
+        {
+            int max = 51;
+            Random ran = new Random();
+
+            List<int> tempcard = gamePlayCard.tempCardID;
+            List<int> gamecard = gamePlayCard.gameCardID;
+
+            tempcard = gamePlayCard.originalCardID;
+
+            for (int p = 0; p < players; p++)
+            {
+                for (int i = 0; i < 13; i++)
+                {
+                    int randomNum = ran.Next(0, max - i -p * 13);
+                    gamecard.Add(gamePlayCard.originalCardID[randomNum]);
+                    tempcard.RemoveAt(randomNum);
+                }
+                gamePlayCard.sortCard(2, gamecard);
+                foreach (int n in gamecard)
+                {
+                    Response.Write(gamePlayCard.cardface(n) + "\t");
+                }
+                Response.Write("<br>");
+                gamecard.Clear();
+            }
+          
+
+            tempcard.Clear();
+        }
+
     }
 }
