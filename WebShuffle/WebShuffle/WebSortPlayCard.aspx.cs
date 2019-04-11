@@ -11,12 +11,14 @@ namespace WebShuffle
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            GamePlayCard gamePlayCard = new GamePlayCard();
+            GamePlayCard gamePlayCard = new GamePlayCard();            
             gamePlayCard.newplaycard();
             List<string> newCard = gamePlayCard.originalCard;
-            for(int i=0;i<newCard.Count;i++)
+
+
+            for (int i = 0; i < newCard.Count; i++)
             {
-                if ((i+1) % 13 != 0)
+                if ((i + 1) % 13 != 0)
                 {
                     Response.Write(newCard[i] + "\t");
                 }
@@ -25,6 +27,16 @@ namespace WebShuffle
                     Response.Write(newCard[i] + "<br>");
                 }
             }
+
+            Response.Write("<br><br>");
+
+            List<int> afterSort = gamePlayCard.originalCardID;
+            gamePlayCard.sortCard(2, afterSort);
+
+            foreach (int no in afterSort)
+            {
+                Response.Write(gamePlayCard.cardface(no) + "\t");
+            }
         }
 
         public class GamePlayCard
@@ -32,58 +44,83 @@ namespace WebShuffle
             public List<string> originalCard = new List<string>();
             List<string> tempCard = new List<string>();
             List<string> showCard = new List<string>();
-            List<int> CardID = new List<int>();  //1~52
+            public List<int> originalCardID = new List<int>();  //1~52
 
             public void newplaycard()
-            {
-                CardID.Add(52);
-                CardID.Add(53);
+            {             
                 for (int i = 1; i < 53; i++)
                 {
-                    CardID.Add(i);
-                    string res = "";
-
-                    int suitnum;
-                    if (i % 13 != 0)
-                    {
-                        suitnum = i / 13;
-                    }
-                    else
-                    {
-                        suitnum = i / 13 - 1;
-                    }
-
-                    switch (suitnum)
-                    {
-                        case 0:
-                            res = "Club" + GetDispalyNum(i % 13);
-                            break;
-                        case 1:
-                            res = "Diamond" + GetDispalyNum(i % 13);
-                            break;
-                        case 2:
-                            res = "Heart" + GetDispalyNum(i % 13);
-                            break;
-                        default:
-                            res = "Spade" + GetDispalyNum(i % 13);
-                            break;
-                    }
-                    originalCard.Add(res);
+                    originalCardID.Add(i);
+                    originalCard.Add(cardface(i));
                 }
             }
 
-            public string cardface(int num)
+            public string cardface(int n)
             {
-                return "";
+
+                int suitnum;
+                string res = "";
+
+                if (n % 13 != 0)
+                {
+                    suitnum = n / 13;
+                }
+                else
+                {
+                    suitnum = n / 13 - 1;
+                }
+                
+                switch (suitnum)
+                {
+                    case 0:
+                        res = "Club" + GetDispalyNum(n % 13);
+                        break;
+                    case 1:
+                        res = "Diamond" + GetDispalyNum(n % 13);
+                        break;
+                    case 2:
+                        res = "Heart" + GetDispalyNum(n % 13);
+                        break;
+                    default:
+                        res = "Spade" + GetDispalyNum(n % 13);
+                        break;
+                }
+
+                return res;
             }
 
-            public void sortCard(int gametype)
+            public List<int> sortCard(int gametype, List<int> cardId)
             {
                 //gametype
                 //1:showhand
                 //2:Big two
 
+                int temp;
+            
+                for (int i = 0; i < cardId.Count(); i++)
+                {
+                    for(int j=i; j < cardId.Count(); j++)
+                    {
+                        if(CardNumberForSort(gametype,cardId[i]) < CardNumberForSort(gametype,cardId[j]))
+                        {
+                            temp = cardId[i];
+                            cardId[i] = cardId[j];
+                            cardId[j] = temp;
+                        }
+                    }
+                }
 
+                return cardId;
+            }
+
+            public int CardNumberForSort(int cardGame, int num)
+            {
+                if (num % 13 <= cardGame && num % 13 != 0)
+                {
+                    num += 13;
+                }
+
+                return num;
             }
 
             string GetDispalyNum(int cardno)
@@ -108,6 +145,7 @@ namespace WebShuffle
                         show = cardno.ToString();
                         break;
                 }
+
                 return show;
             }
         }
