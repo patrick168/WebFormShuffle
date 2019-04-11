@@ -9,40 +9,18 @@ namespace WebShuffle
 {
     public partial class WebDealPlayercardAdv : Page
     {
-        //增加排大小功能
+       
         protected void Page_Load(object sender, EventArgs e)
         {
-            GameCard gameCard = new GameCard();
-            //originalCrad();  //show card 1~52
+            GameCard gameCard = new GameCard();           
         }
-
-        public struct PlayCard
-        {
-            string cardType { get; set; }
-            int cardNO { get; set; }
-        }
-     
-
-        public void originalCrad()
-        {
-            GameCard gameCard = new GameCard();
-            List<string> mycards = gameCard.playcard();
-            for (int i = 0; i < mycards.Count; i++)
-            {
-                Response.Write(mycards[i] + "<br>");
-            }
-        }
+               
      
         public class GameCard
         {
             List<string> tempCard = new List<string>();
             List<string> playerCard = new List<string>();
             List<string> displayCard = new List<string>();
-
-            List<PlayCard> newcards = new List<PlayCard>();
-            List<PlayCard> tempcards = new List<PlayCard>();
-            List<PlayCard> playercards = new List<PlayCard>();
-            List<PlayCard> usecards = new List<PlayCard>();
                         
             public List<string> playcard()
             {
@@ -58,22 +36,7 @@ namespace WebShuffle
                 }
                 return cards;
             }
-
-            public List<PlayCard> playCardList()
-            {
-                string[] cardSuit = { "spade", "heart", "diamond", "club" };
-                PlayCard playCard = new PlayCard();
-                List<PlayCard> cards = new List<PlayCard>();
-
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int x = 1; x <= 13; x++)
-                    {
-                        string onecard = cardSuit[i] + x + "  ";                        
-                    }
-                }
-                return cards;
-            }
+                    
 
             public List<string> Shuffle()
             {
@@ -87,7 +50,6 @@ namespace WebShuffle
                 {
                     int ran = r.Next(0, max - i);
                     tempCard.Add(NewCard[ran]);
-
                     NewCard.RemoveAt(ran);
                 }
                 return tempCard;              
