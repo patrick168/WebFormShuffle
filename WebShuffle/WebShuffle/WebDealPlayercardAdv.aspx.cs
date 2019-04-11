@@ -47,7 +47,7 @@ namespace WebShuffle
             public List<string> playcard()
             {
                 List<string> cards = new List<string>();
-                string[] cardSuit = { "club", "diamond", "heart", "spade" };
+                string[] cardSuit = { "C", "D", "H", "S" };              
                 for (int i = 0; i < 4; i++)
                 {
                     for (int x = 1; x <= 13; x++)
@@ -83,9 +83,7 @@ namespace WebShuffle
                 GameCard gameCard = new GameCard();
                 List<string> NewCard = gameCard.playcard();
 
-                //need to arrange
-                //排序 不管花色照大小排
-                for (int i = 0; i < 13; i++)  //52
+                             for (int i = 0; i < 13; i++)  //52
                 {
                     int ran = r.Next(0, max - i);
                     tempCard.Add(NewCard[ran]);
@@ -104,6 +102,7 @@ namespace WebShuffle
 
             public List<string> SortingCards(List<string> tempCard)
             {
+               
                 return tempCard;
             }
         }

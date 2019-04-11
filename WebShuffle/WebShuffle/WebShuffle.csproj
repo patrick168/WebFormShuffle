@@ -67,11 +67,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bubble.aspx" />
+    <Content Include="bubble_playcard.aspx" />
     <Content Include="Web.config" />
     <Content Include="WebDealPlaycard.aspx" />
     <Content Include="WebDealPlayercardAdv.aspx" />
+    <Content Include="WebSortPlayCard.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bubble.aspx.cs">
+      <DependentUpon>bubble.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bubble.aspx.designer.cs">
+      <DependentUpon>bubble.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bubble_playcard.aspx.cs">
+      <DependentUpon>bubble_playcard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bubble_playcard.aspx.designer.cs">
+      <DependentUpon>bubble_playcard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebDealPlaycard.aspx.cs">
       <DependentUpon>WebDealPlaycard.aspx</DependentUpon>
@@ -86,6 +103,13 @@
     </Compile>
     <Compile Include="WebDealPlayercardAdv.aspx.designer.cs">
       <DependentUpon>WebDealPlayercardAdv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebSortPlayCard.aspx.cs">
+      <DependentUpon>WebSortPlayCard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebSortPlayCard.aspx.designer.cs">
+      <DependentUpon>WebSortPlayCard.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
