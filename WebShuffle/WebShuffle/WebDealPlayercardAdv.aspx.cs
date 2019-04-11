@@ -75,7 +75,7 @@ namespace WebShuffle
                 return cards;
             }
 
-            public List<string>  Shuffle()
+            public List<string> Shuffle()
             {
                 int max = 51;
                 Random r = new Random();
@@ -83,7 +83,7 @@ namespace WebShuffle
                 GameCard gameCard = new GameCard();
                 List<string> NewCard = gameCard.playcard();
 
-                             for (int i = 0; i < 13; i++)  //52
+                for (int i = 0; i < 13; i++)  //52
                 {
                     int ran = r.Next(0, max - i);
                     tempCard.Add(NewCard[ran]);
@@ -95,14 +95,11 @@ namespace WebShuffle
 
                     NewCard.RemoveAt(ran);
                 }
-                return tempCard;
-
-              
+                return tempCard;              
             }
 
             public List<string> SortingCards(List<string> tempCard)
-            {
-               
+            {               
                 return tempCard;
             }
         }
@@ -118,7 +115,6 @@ namespace WebShuffle
 
         protected void ShuffleBtn_Click(object sender, EventArgs e)
         {
-
             GameCard gameCard = new GameCard();
             List<string> tempCard = gameCard.Shuffle();        
           

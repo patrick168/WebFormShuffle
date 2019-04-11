@@ -9,50 +9,87 @@ namespace WebShuffle
 {
     public partial class WebSortPlayCard : System.Web.UI.Page
     {
-        List<string> tempCard;
-        List<string> showCard;
-        List<int> CardID = new List<int>();  //1~52
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            for(int i=1;i<53;i++)
+            GamePlayCard gamePlayCard = new GamePlayCard();
+            gamePlayCard.newplaycard();
+            List<string> newCard = gamePlayCard.originalCard;
+            for(int i=0;i<newCard.Count;i++)
             {
-                //CardID.Add(i);
-          
-
-                int suitnum;
-                if(i%13!=0)
+                if ((i+1) % 13 != 0)
                 {
-                    suitnum = i / 13;
+                    Response.Write(newCard[i] + "\t");
                 }
                 else
                 {
-                    suitnum = i / 13 - 1;
+                    Response.Write(newCard[i] + "<br>");
                 }
+            }
+        }
 
-                switch(suitnum)
+        public class GamePlayCard
+        {
+            public List<string> originalCard = new List<string>();
+            List<string> tempCard = new List<string>();
+            List<string> showCard = new List<string>();
+            List<int> CardID = new List<int>();  //1~52
+
+            public void newplaycard()
+            {
+                CardID.Add(52);
+                CardID.Add(53);
+                for (int i = 1; i < 53; i++)
                 {
-                    case 0:
-                        Response.Write("Club" + GetDispalyNum(i % 13) + "\t");
-                     break;
-                    case 1:
-                        Response.Write("Diamond" + GetDispalyNum(i % 13) + "\t");
-                        break;
-                    case 2:
-                        Response.Write("Heart" + GetDispalyNum(i % 13) + "\t");
-                        break;
-                    default:
-                        Response.Write("Spade" + GetDispalyNum(i % 13) + "\t");
-                        break;
-                }      
-                
+                    CardID.Add(i);
+                    string res = "";
+
+                    int suitnum;
+                    if (i % 13 != 0)
+                    {
+                        suitnum = i / 13;
+                    }
+                    else
+                    {
+                        suitnum = i / 13 - 1;
+                    }
+
+                    switch (suitnum)
+                    {
+                        case 0:
+                            res = "Club" + GetDispalyNum(i % 13);
+                            break;
+                        case 1:
+                            res = "Diamond" + GetDispalyNum(i % 13);
+                            break;
+                        case 2:
+                            res = "Heart" + GetDispalyNum(i % 13);
+                            break;
+                        default:
+                            res = "Spade" + GetDispalyNum(i % 13);
+                            break;
+                    }
+                    originalCard.Add(res);
+                }
+            }
+
+            public string cardface(int num)
+            {
+                return "";
+            }
+
+            public void sortCard(int gametype)
+            {
+                //gametype
+                //1:showhand
+                //2:Big two
+
+
             }
 
             string GetDispalyNum(int cardno)
             {
-                string show="";
+                string show = "";
 
-                //12,13 花色錯
                 switch (cardno)
                 {
                     case 1:
@@ -65,7 +102,7 @@ namespace WebShuffle
                         show = "Q";
                         break;
                     case 0:
-                        show = "K <br/>";
+                        show = "K";
                         break;
                     default:
                         show = cardno.ToString();
